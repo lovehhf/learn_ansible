@@ -1,0 +1,19 @@
+---
+- name: Install needed packages
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - pcre
+    - pcre-devel
+    - openssl
+    - openssl-devel
+
+- name: add nginx repository
+  template:
+    dest: /etc/nginx.repo 
+    src: /nginx.repo.j2
+
+- name: tar nginx source code
+  shell: >
+    tar zxf /var/tmp/nginx-1.8.1.tar.gz -C /var/tmp
